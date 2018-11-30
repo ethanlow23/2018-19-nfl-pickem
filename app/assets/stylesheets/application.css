@@ -1,0 +1,61 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ .navbar {
+    margin-bottom: 0em;
+    padding: 0.5em 0em;
+ }
+.top_header {
+    height: 16em;
+    background-image: url("background.png");
+    color: white;
+    padding: 2em 0em;
+    margin-bottom: 2em;
+}
+.page_title {
+    margin-top: 3em;
+}
+.page_title h3 {
+    font-size: 4em;
+}
+img {
+    max-width: 100%;
+}
+.table-striped {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.group_leader {
+    border-style: solid;
+    border-width: 0.25em;
+}
+.error {
+    color: red;
+    font-size: 2em;
+}
+a {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: fantasy;
+}
+.correct {
+    font-weight: bold;
+    color: green;
+}
+.incorrect {
+    color: red;
+    text-decoration: line-through;
+}

@@ -1,0 +1,58 @@
+<div class="col-md-12 text-center top_header">
+    <div class="page_title">
+        <h3><%= @group.name %></h3>
+        <h4>Created by: <%= @group.user.first_name %> <%= @group.user.last_name %></h4>
+    </div>
+    <div class="col-md-12 text-center">
+        <% if @group.user.id == current_user.id %>
+            <a href="/groups/<%= @group.id %>/destroy" data-method="post"><button class="btn btn-md btn-success">Delete Group</button></a>
+        <% elsif @group.users_joined.include? current_user %>
+            <a href="/groups/<%= @group.id %>/leave" data-method="post"><button class="btn btn-md btn-success">Leave Group</button></a>
+        <% else %>
+            <a href="/groups/<%= @group.id %>/join" data-method="post"><button class="btn btn-md btn-success">Join Group</button></a>
+        <% end %>
+    </div>
+</div>
+<div class="col-md-2">
+    <%= image_tag "side1.png" %>
+    <%= image_tag "side2.png" %>
+    <%= image_tag "side3.png" %>
+    <%= image_tag "side4.png" %>    
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-2 text-center">
+    <h3>High Scorer</h3>
+    <h1><%= @high_scorer %></h1>
+    <h3>High Score</h3>
+    <h2><%= @high_score %></h2>
+    <hr style="border: 0.1em solid black; margin: 5em 0em;">
+    <h3>Group Members</h3>
+    <% @group.users_joined.each do |user| %>
+        <p><a href="/users/<%= user.id %>"><%= user.username %></a></p>
+    <% end %>
+</div>
+<div class="col-md-2 text-center">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @group.users_joined.each do |user| %>
+                <tr>
+                    <td><%= user.username %></td>
+                    <td><%= user.picks.where(correct: true).count %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-2">
+    <%= image_tag "side5.png" %>
+    <%= image_tag "side6.png" %>
+    <%= image_tag "side7.png" %>
+    <%= image_tag "side8.png" %>
+</div>

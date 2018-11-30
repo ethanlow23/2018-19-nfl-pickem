@@ -1,0 +1,42 @@
+<div class="col-md-12 text-center top_header">
+    <div class="page_title">
+        <h3><%= @user.username %>'s Profile</h3>
+    </div>
+</div>
+<div class="col-md-2">
+    <%= image_tag "side1.png" %>
+    <%= image_tag "side2.png" %>
+    <%= image_tag "side3.png" %>
+    <%= image_tag "side4.png" %>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-2">
+    <h3>First Name: <%= @user.first_name %></h3>
+    <h3>Last Name: <%= @user.last_name %></h3>
+    <h3>Username: <%= @user.username %></h3>
+    <h3>Groups:</h3>
+    <ul>
+        <% @user.groups.each do |group| %>
+            <li><a href="/groups/<%= group.id %>"><%= group.name %></a></li>
+        <% end %>
+        <% @user.groups_joined.each do |group| %>
+            <% unless group.user.id === @user.id %>
+                <li><a href="/groups/<%= group.id %>"><%= group.name %></a></li>
+            <% end %>
+        <% end %>
+    </ul>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-2">
+    <h3>Statistics</h3>
+    <p>Correct Picks: <%= @user.picks.where(correct: true).count %></p>
+    <p>Incorrect Picks: <%= @user.picks.where(correct: false).count %></p>
+    <p>Percentage: <%= (@user.picks.where(correct: true).count.to_f / (@user.picks.where(correct: true).count + @user.picks.where(correct: false).count)) * 100 %>%</p>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-2">
+    <%= image_tag "side5.png" %>
+    <%= image_tag "side6.png" %>
+    <%= image_tag "side7.png" %>
+    <%= image_tag "side8.png" %>
+</div>

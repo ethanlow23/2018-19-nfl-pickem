@@ -1,0 +1,55 @@
+<div class="col-md-12 text-center top_header">
+    <div class="page_title">
+        <h3>My Groups</h3>
+    </div>
+</div>
+<div class="col-md-2">
+    <%= image_tag "side1.png" %>
+    <%= image_tag "side2.png" %>
+    <%= image_tag "side3.png" %>
+    <%= image_tag "side4.png" %>
+    <img src="https://triblive.com/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=J_Fjm2h_CRqFX3eH3L_1ms$daE2N3K4ZzOUsqbU5sYuCgfriFlM7D9s64zkeSOyQWCsjLu883Ygn4B49Lvm9bPe2QeMKQdVeZmXF$9l$4uCZ8QDXhaHEp3rvzXRJFdy0KqPHLoMevcTLo3h8xh70Y6N_U_CryOsw6FTOdKL_jpQ-&amp;CONTENTTYPE=image/jpeg">
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-2 text-right">
+    <h3>Groups Created</h3>
+    <% @my_groups.each do |group| %>
+        <p><a href="/groups/<%= group.id %>"><%= group.name %></a></p>
+    <% end %>
+    <h3>Groups Joined</h3>
+    <% current_user.groups_joined.each do |group| %>
+        <% unless group.user.id == current_user.id %>
+            <p><a href="/groups/<%= group.id %>"><%= group.name %></a></p>
+        <% end %>
+    <% end %>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-2">
+    <h3>Create New Group</h3>
+    <form action="/groups/create" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="text" name="group[name]" id="name">
+        <input type="submit" value="Create Group">
+    </form>
+    <h3>Find a Group</h3>
+    <form action="/groups/find" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="text" name="group_name">
+        <input type="submit" value="Search">
+    </form>
+    <% if @group %>
+        <a href="/groups/<%= @group.id %>"><%= @group.name %></a>
+    <% end %>
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+        <p class="error"><%= error %></p>
+      <% end %>
+    <% end %>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-2">
+    <%= image_tag "side5.png" %>
+    <%= image_tag "side6.png" %>
+    <%= image_tag "side7.png" %>
+    <%= image_tag "side8.png" %>
+</div>

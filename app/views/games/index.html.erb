@@ -1,0 +1,106 @@
+<div class="col-md-12 text-center top_header">
+    <form action="/games" method="get">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <% (1..17).each do |n| %>
+                    <% if n == @num.to_i %>
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="week" value="<%= n %>" onchange="this.form.submit();" autocomplete="off" checked>Week <%= n %>
+                        </label>
+                    <% else %>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="week" value="<%= n %>" onchange="this.form.submit();" autocomplete="off">Week <%= n %>
+                        </label>
+                    <% end %>
+            <% end %>
+        </div>
+    </form>
+    <div class="page_title">
+        <h3>Week <%= @num %> Games</h3>
+    </div>
+</div>
+<div class="col-md-2 outer">
+    <%= image_tag "side1.png" %>
+    <%= image_tag "side2.png" %>
+    <%= image_tag "side3.png" %>
+    <%= image_tag "side4.png" %>
+</div>
+<div class="col-md-8 text-center">
+    <form action="/games/picks/<%= @num %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td><h4>Away</h4></td>
+                    <td></td>
+                    <td><h4>Home</h4></td>
+                </tr>
+            </thead>
+            <tbody>
+            <% @games.each_with_index do |game, index| %>
+                <% if game.home_score and current_user %>
+                    <tr>
+                        <% if current_user.picks.find_by(game: game) %>
+                            <% if current_user.picks.find_by(game: game).team == game.away %>
+                                <% if current_user.picks.find_by(game: game).correct %>
+                                    <td><span class="correct"><%= game.away %></span> - <%= game.away_score %></td>
+                                    <td>@</td>
+                                    <td><%= game.home %> - <%= game.home_score %></td>
+                                <% else %>
+                                    <td><span class="incorrect"><%= game.away %></span> - <%= game.away_score %></td>
+                                    <td>@</td>
+                                    <td><%= game.home %> - <%= game.home_score %></td>
+                                <% end %>
+                            <% else %>
+                                <% if current_user.picks.find_by(game: game).correct %>
+                                    <td><%= game.away %> - <%= game.away_score %></td>
+                                    <td>@</td>
+                                    <td><span class="correct"><%= game.home %></span> - <%= game.home_score %></td>
+                                <% else %>
+                                    <td><%= game.away %> - <%= game.away_score %></td>
+                                    <td>@</td>
+                                    <td><span class="incorrect"><%= game.home %></span> - <%= game.home_score %></td>
+                                <% end %>
+                            <% end %>
+                        <% else %>
+                            <td><%= game.away %> - <%= game.away_score %></td>
+                            <td>@</td>
+                            <td><%= game.home %> - <%= game.home_score %></td>
+                        <% end %>
+                    </tr>
+                <% elsif game.home_score and not current_user %>
+                    <tr>
+                        <td><%= game.away %> - <%= game.away_score %></td>
+                        <td>@</td>
+                        <td><%= game.home %> - <%= game.home_score %></td>
+                    </tr>
+                <% else %>
+                    <tr>
+                        <% if @teams.include? game.home %>
+                            <td><input type="radio" name="game_<%= index %>" value="<%= game.away %>" disabled> <%= game.away %></td>
+                            <td style="text-align: center;">@</td>
+                            <td><input type="radio" name="game_<%= index %>" value="<%= game.home %>" checked disabled> <%= game.home %></td>
+                        <% elsif @teams.include? game.away %>
+                            <td><input type="radio" name="game_<%= index %>" value="<%= game.away %>" checked disabled> <%= game.away %></td>
+                            <td style="text-align: center;">@</td>
+                            <td><input type="radio" name="game_<%= index %>" value="<%= game.home %>" disabled> <%= game.home %></td>
+                        <% else %>
+                            <td><input type="radio" name="game_<%= index %>" value="<%= game.away %>"> <%= game.away %></td>
+                            <td style="text-align: center;">@</td>
+                            <td><input type="radio" name="game_<%= index %>" value="<%= game.home %>"> <%= game.home %></td>
+                        <% end %>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+        </table>
+        <% if Game.find_by(week: @num, home_score: nil) and current_user %>
+            <input type="submit" value="Save">
+        <% end %>
+    </form>
+</div>
+<div class="col-md-2">
+    <%= image_tag "side5.png" %>
+    <%= image_tag "side6.png" %>
+    <%= image_tag "side7.png" %>
+    <%= image_tag "side8.png" %>
+</div>
