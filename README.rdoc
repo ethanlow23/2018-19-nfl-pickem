@@ -1,28 +1,13 @@
-== README
+= 2018-19 NFL Pick'em
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+=== About
 
-Things you may want to cover:
+This NFL pick'em application is for the 2018-2019 NFL season. Create groups with friends and compete for the highest score based on who you think will win each game every week.
 
-* Ruby version
+=== Running the Application
 
-* System dependencies
+* <tt>Bundle Install</tt>
 
-* Configuration
+* <tt>rake db:migrate</tt>
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* <tt>rails server</tt>
